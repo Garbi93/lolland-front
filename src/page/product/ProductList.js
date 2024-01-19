@@ -6,10 +6,22 @@ import {
   Button,
   Flex,
   Image,
+  Input,
   SimpleGrid,
   Spinner,
   Text,
 } from "@chakra-ui/react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
+import * as PropTypes from "prop-types";
+
+function PageButton({ variant, pageNumber, children }) {
+  const [params] = useSearchParams();
+
+  console.log(params.toString());
+
+  return <Button variant={variant}>{children}</Button>;
+}
 
 function Pagination({ pageInfo }) {
   const navigate = useNavigate();
@@ -26,12 +38,55 @@ function Pagination({ pageInfo }) {
 
   return (
     <Box>
-      {pageNumbers.map((pageNumber) => (
-        <Button key={pageNumber} onClick={() => navigate("?p=" + pageNumber)}>
-          {pageNumber}
+      {pageInfo.prevPageNumber && (
+        <Button
+          variant={"ghost"}
+          onClick={() => navigate("?p=" + pageInfo.prevPageNumber)}
+        >
+          <FontAwesomeIcon icon={faAngleLeft} />
         </Button>
+      )}
+
+      {pageNumbers.map((pageNumber) => (
+        <PageButton
+          key={pageNumber}
+          variant={
+            pageNumber === pageInfo.currentPageNumber ? "solid" : "ghost"
+          }
+          pageNumber={pageNumber}
+        >
+          {pageNumber}
+        </PageButton>
       ))}
+
+      {pageInfo.nextPageNumber && (
+        <Button
+          variant={"ghost"}
+          onClick={() => navigate("?p=" + pageInfo.nextPageNumber)}
+        >
+          <FontAwesomeIcon icon={faAngleRight} />
+        </Button>
+      )}
     </Box>
+  );
+}
+
+function SearchComponent() {
+  const [keyword, setKeyword] = useState("");
+  const navigate = useNavigate();
+
+  function handleSearch() {
+    const params = new URLSearchParams();
+    params.set("k", keyword);
+
+    navigate("?" + params); // ------------------- 오류나면 여길 제일 먼저 확인하기 -------------------
+  }
+
+  return (
+    <Flex>
+      <Input value={keyword} onChange={(e) => setKeyword(e.target.value)} />
+      <Button onClick={handleSearch}>검색</Button>
+    </Flex>
   );
 }
 
@@ -148,6 +203,7 @@ export function ProductList() {
           ))}
         </SimpleGrid>
       </Flex>
+      <SearchComponent />
       <Pagination pageInfo={pageInfo} />
     </Box>
   );
