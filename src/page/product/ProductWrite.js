@@ -116,6 +116,9 @@ export function ProductWrite() {
           description: "오류발생",
           status: "error",
         });
+      })
+      .finally(() => {
+        setIsSubmitting(false);
       });
   }
 
