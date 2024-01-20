@@ -21,6 +21,7 @@ export function ProductWrite() {
   const [seletedSubCategory, setSeletedSubCategory] = useState(null);
   const [selectedCategoryName, setSelectedCategoryName] = useState("");
   const [selectedSubCategoryName, setSelectedSubCategoryName] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const toast = useToast();
   const navigate = useNavigate();
@@ -86,6 +87,8 @@ export function ProductWrite() {
 
   // ---------------------------------- 저장 버튼 클릭 로직 ----------------------------------
   function handleSubmit() {
+    setIsSubmitting(true);
+
     options.map((option) => console.log(option));
 
     axios
@@ -267,7 +270,12 @@ export function ProductWrite() {
             </Flex>
           </Box>
 
-          <Button mt={10} colorScheme="blue" onClick={handleSubmit}>
+          <Button
+            mt={10}
+            colorScheme="blue"
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+          >
             저장
           </Button>
         </Box>

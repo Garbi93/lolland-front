@@ -17,10 +17,18 @@ import * as PropTypes from "prop-types";
 
 function PageButton({ variant, pageNumber, children }) {
   const [params] = useSearchParams();
+  const navigate = useNavigate();
 
-  console.log(params.toString());
+  function handleClick() {
+    params.set("p", pageNumber);
+    navigate("?" + params);
+  }
 
-  return <Button variant={variant}>{children}</Button>;
+  return (
+    <Button variant={variant} onClick={handleClick}>
+      {children}
+    </Button>
+  );
 }
 
 function Pagination({ pageInfo }) {
@@ -143,9 +151,9 @@ export function ProductList() {
           spacing={9}
           m={10}
         >
-          {productList.map((product) => (
+          {productList.map((product, index) => (
             <Box
-              key={product.product_id}
+              key={product.product_id + "_" + index}
               onMouseEnter={() => setHoveredBoardId(product.product_id)} // 마우스 호버 시 상태 변경
               onMouseLeave={() => setHoveredBoardId(null)}
               borderRadius="10px"
