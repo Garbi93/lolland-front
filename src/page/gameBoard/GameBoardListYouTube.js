@@ -60,31 +60,31 @@ export function GameBoardListYouTube() {
       <Divider color={"whitesmoke"} />
       <CardBody>
         <Box>
-          <Swiper
-            slidesPerView={1}
-            pagination={{
-              clickable: true,
-            }}
-            modules={[Navigation, SwiperPagination]}
-            className="mySwiper"
-          >
-            {searchedVideos &&
-              searchedVideos.map((item) => (
-                <SwiperSlide key={item.videoId}>
-                  <Box key={item.videoId} mb={"50px"}>
-                    <YouTube videoId={item.videoId} opts={opts} />
-                    <Box
-                      fontSize={"1.1em"}
-                      mt={"5px"}
-                      fontWeight={"bold"}
-                      textAlign={"center"}
-                    >
-                      {item.title.replace(/&QUOT;/gi, '"')}
-                    </Box>
-                  </Box>
-                </SwiperSlide>
-              ))}
-          </Swiper>
+          {/*<Swiper*/}
+          {/*  slidesPerView={1}*/}
+          {/*  pagination={{*/}
+          {/*    clickable: true,*/}
+          {/*  }}*/}
+          {/*  modules={[Navigation, SwiperPagination]}*/}
+          {/*  className="mySwiper"*/}
+          {/*>*/}
+          {/*  {searchedVideos &&*/}
+          {/*    searchedVideos.map((item) => (*/}
+          {/*      <SwiperSlide key={item.videoId}>*/}
+          {/*        <Box key={item.videoId} mb={"50px"}>*/}
+          {/*          <YouTube videoId={item.videoId} opts={opts} />*/}
+          {/*          <Box*/}
+          {/*            fontSize={"1.1em"}*/}
+          {/*            mt={"5px"}*/}
+          {/*            fontWeight={"bold"}*/}
+          {/*            textAlign={"center"}*/}
+          {/*          >*/}
+          {/*            {item.title.replace(/&QUOT;/gi, '"')}*/}
+          {/*          </Box>*/}
+          {/*        </Box>*/}
+          {/*      </SwiperSlide>*/}
+          {/*    ))}*/}
+          {/*</Swiper>*/}
         </Box>
       </CardBody>
     </Card>
